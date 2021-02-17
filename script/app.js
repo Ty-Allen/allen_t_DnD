@@ -2,6 +2,7 @@
 	// put variable at the top
 	const puzzleSelectors = document.querySelectorAll("#buttonHolder img"),
 				dropZoneContainer = document.querySelector(".puzzle-board"),
+				dragZone = document.querySelector(".puzzle-pieces"),
 				dragImages = document.querySelectorAll(".puzzle-image"),
 				dropZones = document.querySelectorAll(".drop-zone");
 
@@ -33,7 +34,18 @@
 	}
 
 	//changes the bg image of the drop zone div using the style property
+	// and sending the thumbnail images back to the drag zone
 	function changeBGImage() {
+		// 1. check all the drop Zones
+		// 2. if a drop zone has an image in it, then it needs to go back where it came from
+		// 3. append it back into the drag zone
+
+		dropZones.forEach(zone => {
+			if (zone.childNodes.length > 0) {
+				dragZone.appendChild(zone.firstElementChild);
+			}
+		});
+
 		//get the custom data attribute from the clicked button
 		let imageRef = this.dataset.imageref;
 
